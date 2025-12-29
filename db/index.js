@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+import { DB_NAME } from "../constant.js";
+
 
 //second approach to connect to DB
 

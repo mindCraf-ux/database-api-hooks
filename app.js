@@ -21,7 +21,7 @@ app.use(express.urlencoded({extended: true, limit: "16kb"}))
 
 
 //routes here
-import userRouter from './routes/user.routees.js';
+import userRouter from './routes/user.routes.js';
 
 //user routes..user decleration middleware
 app.use('/api/users', userRouter); //we use userRouter for all routes starting with /users
