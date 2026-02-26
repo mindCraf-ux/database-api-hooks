@@ -410,7 +410,15 @@ if (!channel || channel.length === 0) {
 return res.status(200).json(new ApiResponse(200, channel[0], "Channel profile fetched successfully"))
 })
 
-
+const getWatchHistory = asyncHandler(async(req, res) =>{
+const user = await User.aggregate([
+  {
+    $match: {
+      _id: new mongoose.types.ObjectId(req.user._id)
+    }
+  }
+])
+})
 export {registerUser,
   loginUser,
   logoutUser,
@@ -421,5 +429,5 @@ export {registerUser,
   updateUserAvatar,
   updateUserCoverImage,
   getUserChannelProfile,
-  
+  getWatchHistory
 }; 
