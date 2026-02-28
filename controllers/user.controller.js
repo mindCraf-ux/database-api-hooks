@@ -351,7 +351,7 @@ const {username} = req.params
 if(!username?.trim()){
   throw new ApiError(400, "Username is required")
 }
-
+//creating channel profile with aggregation(pipeline stages)
 const channel = await User.aggregate([
   {
     $match:{
