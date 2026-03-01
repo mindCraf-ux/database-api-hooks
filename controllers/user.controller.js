@@ -5,8 +5,7 @@ import {User} from '../models/user.models.js';
 import { uploadOnCloudinary } from '../utils/cloudinary.js';
 import { ApiResponse } from '../utils/ApiResponse.js';
 import jwt from 'jsonwebtoken';
-
-export {uploadOnCloudinary} from '../utils/cloudinary.js';
+import mongoose from 'mongoose';
 
 const generateAccessAndRefereshTokens = async(userId)=>{
   try{
@@ -173,8 +172,9 @@ const loginUser = asyncHandler(async (req, res)=>{
  await User.findByIdAndUpdate(
     req.user._id,
     {
-      $set: {
-        refreshToken: undefined
+      $unset: {
+        refreshToken: 1 //1 means delete the field
+        //this will remove the refresh token from db, so that it cannot be used to generate new access token, effectively logging out the user
       }
     },
     {
@@ -414,7 +414,7 @@ const getWatchHistory = asyncHandler(async(req, res) =>{
 const user = await User.aggregate([
   {
     $match: {
-      _id: new mongoose.types.ObjectId(req.user._id)
+      _id: new mongoose.Types.ObjectId(req.user._id)
     }
   },
 
